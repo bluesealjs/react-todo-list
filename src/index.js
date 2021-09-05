@@ -17,8 +17,16 @@ serviceWorker.register();
 // for invalidating cache and force reload
 const MyApp = (
   <CacheBuster>
-    {({ isCurrentLatestVersion, refreshCacheAndReload }) => {
+    {async ({ isCurrentLatestVersion, refreshCacheAndReload }) => {
+      // if current is not latest
       if (!isCurrentLatestVersion) {
+        await new Promise((resolve) =>
+          setTimeout(() => {
+            console.log('**************force reload in 7 secs');
+            resolve();
+          }, 7000)
+        );
+
         // You can decide how and when you want to force reload
         refreshCacheAndReload();
       }

@@ -12,6 +12,8 @@ const CacheBuster = (props) => {
     fetch('/meta.json')
       .then((response) => response.json())
       .then((meta) => {
+        console.log('****************fetched meta: ', meta);
+
         const latestVersion = meta.version;
         const currentVersion = global.appVersion;
 
