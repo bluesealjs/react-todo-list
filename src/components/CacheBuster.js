@@ -4,8 +4,8 @@ global.appVersion = process.env.REACT_APP_VERSION;
 console.log('*****************version: ', global.appVersion);
 
 const CacheBuster = (props) => {
-  const [loading, setLoading] = useState(true);
-  const [isLatestVersion, setIsLatestVersion] = useState(false);
+  // const [loading, setLoading] = useState(true);
+  const [isCurrentLatestVersion, setIsCurrentLatestVersion] = useState(false);
   // const [refreshCacheAndReload, setRefreshCacheAndReload] = useState(null);
 
   useEffect(() => {
@@ -23,21 +23,20 @@ const CacheBuster = (props) => {
           console.log(
             `We have a new version - ${latestVersion}. Should force refresh`
           );
-          setLoading(false);
-          setIsLatestVersion(false);
+
+          setIsCurrentLatestVersion(false);
         } else {
           console.log(
             `You already have the latest version - ${latestVersion}. No cache refresh needed.`
           );
 
-          setLoading(false);
-          setIsLatestVersion(true);
+          setIsCurrentLatestVersion(true);
         }
       });
   }, []);
 
-  // version from `meta.json` - first param
-  // version in bundle file - second param
+  // versionA from `meta.json` - first param - latest version
+  // versionB in bundle file - second param - current version
   const semverGreaterThan = (versionA, versionB) => {
     const versionsA = versionA.split(/\./g);
 
@@ -67,8 +66,7 @@ const CacheBuster = (props) => {
   };
 
   return props.children({
-    loading,
-    isLatestVersion,
+    isCurrentLatestVersion,
     refreshCacheAndReload,
   });
 };

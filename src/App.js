@@ -70,7 +70,7 @@ class App extends Component {
         <div className="row">
           <div className="col-10 mx-auto col-md-8 mt-4">
             <h3 className="text-capitalize text-center">
-              todo input - PWA Test 03
+              todo input - PWA Test 04 with cache buster omg
             </h3>
             <TodoInput
               item={this.state.item}

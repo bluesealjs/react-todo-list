@@ -17,7 +17,12 @@ serviceWorker.register();
 // for invalidating cache and force reload
 const MyApp = (
   <CacheBuster>
-    {({ loading, isLatestVersion, refreshCacheAndReload }) => {
+    {({ isCurrentLatestVersion, refreshCacheAndReload }) => {
+      if (!isCurrentLatestVersion) {
+        // You can decide how and when you want to force reload
+        refreshCacheAndReload();
+      }
+
       return (
         <>
           <App />
