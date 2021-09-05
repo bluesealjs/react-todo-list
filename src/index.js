@@ -19,11 +19,10 @@ const MyApp = () => (
   <CacheBuster>
     {({ isCurrentAppLatestVersion, refreshCacheAndReload }) => {
       console.log({ isCurrentAppLatestVersion, refreshCacheAndReload });
-      console.log('NODE_ENV: ', process.env.NODE_ENV);
+
       // if current is not latest
       if (!isCurrentAppLatestVersion) {
         // You can decide how and when you want to force reload
-
         process.env.NODE_ENV === 'production' && refreshCacheAndReload();
       }
 

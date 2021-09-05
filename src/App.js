@@ -69,7 +69,10 @@ class App extends Component {
       <div className="container">
         <div className="row">
           <div className="col-10 mx-auto col-md-8 mt-4">
-            <h3 className="text-capitalize text-center">todo input - PWA 08</h3>
+            <h3 className="text-capitalize text-center">todo input</h3>
+            {process.env.NODE_ENV === 'production' && (
+              <h4>PWA v: {global.appVersion}</h4>
+            )}
             <TodoInput
               item={this.state.item}
               handleChange={this.handleChange}
