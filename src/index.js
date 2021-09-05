@@ -22,7 +22,8 @@ const MyApp = () => (
       // if current is not latest
       if (!isCurrentAppLatestVersion) {
         // You can decide how and when you want to force reload
-        refreshCacheAndReload();
+        console.log('NODE_ENV: ', process.env.NODE_ENV);
+        process.env.NODE_ENV === 'production' && refreshCacheAndReload();
       }
 
       return <App />;
