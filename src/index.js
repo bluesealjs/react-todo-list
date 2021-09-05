@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import CacheBuster from './components/CacheBuster';
+import CacheBuster from './CacheBuster';
 
 const render = (Component) => {
   return ReactDOM.render(<Component />, document.getElementById('root'));
