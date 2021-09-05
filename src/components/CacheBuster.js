@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 global.appVersion = process.env.REACT_APP_VERSION;
 
-console.log('*****************version: ', global.appVersion);
-
 const CacheBuster = (props) => {
   const [isCurrentAppLatestVersion, setIsCurrentAppLatestVersion] = useState(
     true
@@ -15,6 +13,13 @@ const CacheBuster = (props) => {
 
       const latestVersion = meta.version;
       const currentVersion = global.appVersion;
+
+      console.log(
+        '*****************current Version: ',
+        currentVersion,
+        ', latest Version: ',
+        latestVersion
+      );
 
       const shouldForceRefresh = semverGreaterThan(
         latestVersion,
