@@ -4,37 +4,38 @@ global.appVersion = process.env.REACT_APP_VERSION;
 console.log('*****************version: ', global.appVersion);
 
 const CacheBuster = (props) => {
-  // const [loading, setLoading] = useState(true);
-  const [isCurrentLatestVersion, setIsCurrentLatestVersion] = useState(false);
-  // const [refreshCacheAndReload, setRefreshCacheAndReload] = useState(null);
+  const [isCurrentAppLatestVersion, setIsCurrentAppLatestVersion] = useState(
+    true
+  );
 
   useEffect(() => {
-    fetch('/meta.json')
-      .then((response) => response.json())
-      .then((meta) => {
-        console.log('****************fetched meta: ', meta);
+    const fetchMeta = async () => {
+      let res = await fetch('/meta.json');
+      let meta = await res.json();
 
-        const latestVersion = meta.version;
-        const currentVersion = global.appVersion;
+      const latestVersion = meta.version;
+      const currentVersion = global.appVersion;
 
-        const shouldForceRefresh = semverGreaterThan(
-          latestVersion,
-          currentVersion
+      const shouldForceRefresh = semverGreaterThan(
+        latestVersion,
+        currentVersion
+      );
+      if (shouldForceRefresh) {
+        console.log(
+          `We have a new version - ${latestVersion}. Should force refresh`
         );
-        if (shouldForceRefresh) {
-          console.log(
-            `We have a new version - ${latestVersion}. Should force refresh`
-          );
 
-          setIsCurrentLatestVersion(false);
-        } else {
-          console.log(
-            `You already have the latest version - ${latestVersion}. No cache refresh needed.`
-          );
+        setIsCurrentAppLatestVersion(false);
+      } else {
+        console.log(
+          `You already have the latest version - ${latestVersion}. No cache refresh needed.`
+        );
 
-          setIsCurrentLatestVersion(true);
-        }
-      });
+        setIsCurrentAppLatestVersion(true);
+      }
+    };
+
+    fetchMeta();
   }, []);
 
   // versionA from `meta.json` - first param - latest version
@@ -68,7 +69,7 @@ const CacheBuster = (props) => {
   };
 
   return props.children({
-    isCurrentLatestVersion,
+    isCurrentAppLatestVersion,
     refreshCacheAndReload,
   });
 };

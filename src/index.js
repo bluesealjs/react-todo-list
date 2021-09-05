@@ -15,32 +15,22 @@ const render = (Component) => {
 serviceWorker.register();
 
 // for invalidating cache and force reload
-const MyApp = (
+const MyApp = () => (
   <CacheBuster>
-    {async ({ isCurrentLatestVersion, refreshCacheAndReload }) => {
+    {({ isCurrentAppLatestVersion, refreshCacheAndReload }) => {
+      console.log({ isCurrentAppLatestVersion, refreshCacheAndReload });
       // if current is not latest
-      if (!isCurrentLatestVersion) {
-        await new Promise((resolve) =>
-          setTimeout(() => {
-            console.log('**************force reload in 7 secs');
-            resolve();
-          }, 7000)
-        );
-
+      if (!isCurrentAppLatestVersion) {
         // You can decide how and when you want to force reload
         refreshCacheAndReload();
       }
 
-      return (
-        <>
-          <App />
-        </>
-      );
+      return <App />;
     }}
   </CacheBuster>
 );
 
-render(App);
+render(MyApp);
 
 if (module.hot) {
   module.hot.accept('./App', () => {
